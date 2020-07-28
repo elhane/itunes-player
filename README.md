@@ -1,1 +1,1 @@
-# itunes-player
+# Интенсив по JS | Пишем "iTunes" на JavaScript
