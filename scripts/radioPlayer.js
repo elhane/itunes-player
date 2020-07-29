@@ -10,7 +10,7 @@ export const radioPlayerInit = () => {
   const audio = new Audio();
   audio.type = 'audio/aac';
   let lastVolumeValue = audio.volume;
-  
+
   radioStop.disabled = true;
 
   const changeIconPlay = () => {
@@ -22,6 +22,20 @@ export const radioPlayerInit = () => {
       radio.classList.add('play');
       radioStop.classList.add('fa-stop');
       radioStop.classList.remove('fa-play');
+    }
+  }
+
+  const toggleMute = () => {
+    if (radioVolumeDownBtn.classList.contains('fa-volume-down')) {
+      radioVolumeDownBtn.classList.remove('fa-volume-down');
+      radioVolumeDownBtn.classList.add('fa-volume-off');
+      audio.volume = 0;
+      radioVolume.value = 0;
+    } else {
+      radioVolumeDownBtn.classList.remove('fa-volume-off');
+      radioVolumeDownBtn.classList.add('fa-volume-down');
+      audio.volume = lastVolumeValue;
+      radioVolume.value = lastVolumeValue * 100;
     }
   }
 
@@ -53,29 +67,13 @@ export const radioPlayerInit = () => {
       audio.pause();
     }
     changeIconPlay();
-
-    radioVolume.volume = 0.5;
   })
 
   radioVolume.addEventListener('input', () => {
     audio.volume = radioVolume.value / 100;
     lastVolumeValue = audio.volume;
-    console.log('lastVolumeValue in radioVolume: ', lastVolumeValue);
   });
 
-  radioVolume.value = radioVolume.value * 100;
-
-  radioVolumeDownBtn.addEventListener('click', () => {
-    if (radioVolumeDownBtn.classList.contains('fa-volume-down')) {
-      radioVolumeDownBtn.classList.remove('fa-volume-down');
-      radioVolumeDownBtn.classList.add('fa-volume-off');
-      audio.volume = 0;
-      radioVolume.value = 0;
-    } else {
-      radioVolumeDownBtn.classList.remove('fa-volume-off');
-      radioVolumeDownBtn.classList.add('fa-volume-down');
-      audio.volume = lastVolumeValue;
-      radioVolume.value = lastVolumeValue * 100;
-    }
-  });
+  radioVolumeDownBtn.addEventListener('click', toggleMute);
+  
 };
