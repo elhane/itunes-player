@@ -108,7 +108,6 @@ export const musicPlayerInit = () => {
 
   });
 
-
   musicPlayerInit.stop = () => {
     if (!audioPlayer.paused) {
       audioPlayer.pause();
