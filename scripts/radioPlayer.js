@@ -75,5 +75,10 @@ export const radioPlayerInit = () => {
   });
 
   radioVolumeDownBtn.addEventListener('click', toggleMute);
+
+  radioPlayerInit.stop = () => {
+    audio.pause();
+    changeIconPlay();
+  };
   
 };
